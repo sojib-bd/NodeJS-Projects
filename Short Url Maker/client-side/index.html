@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL Shortener</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>Get a Shorter URL</h1>
+
+    <!-- Section to shorten the URL -->
+    <div class="section">
+      <div class="section-title">Enter Your Long URL</div>
+      <input type="url" id="long-url" placeholder="Enter your long URL here">
+      <button id="shorten-btn">Shorten URL</button>
+      <div id="short-url-output" class="small-text"></div>
+    </div>
+
+    <!-- Section to visit the shortened URL -->
+    <div class="section">
+      <div class="section-title">Visit Short URL</div>
+      <input type="text" id="short-url" placeholder="Enter shortened URL">
+      <button id="visit-btn">Visit the Site</button>
+    </div>
+
+    <div id="success-msg" class="success-message"></div>
+  </div>
+
+  <script>
+    document.getElementById('shorten-btn').addEventListener('click', async function () {
+    const longUrl = document.getElementById('long-url').value;
+    console.log(longUrl);
+
+    if (!longUrl) {
+      alert('Please enter a valid URL!');
+      return;
+    }
+
+    // Generate a short URL alias (client-side)
+    const shortUrlAlias = Math.random().toString(36).substring(2, 8); // e.g. "abc123"
+    const shortUrl = 'short.ly/' + shortUrlAlias;
+
+    try {
+      // Send POST request to server
+      const response = await fetch('/api/shorten', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          longUrl: longUrl,
+          shortUrl: shortUrl
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to shorten URL');
+      }
+
+      const data = await response.json();
+
+      // Display the result
+      document.getElementById('short-url-output').textContent = `Short URL: ${data.shortUrl}`;
+    } catch (error) {
+      alert('Error: ' + error.message);
+    }
+  });
+
+   document.getElementById('visit-btn').addEventListener('click', function () {
+    const shortUrlInput = document.getElementById('short-url').value;
+
+    if (!shortUrlInput) {
+      alert('Please enter a short URL alias!');
+      return;
+    }
+
+    // Extract alias if full URL is given (e.g., short.ly/abc123 → abc123)
+    const alias = shortUrlInput.split('/').pop();
+
+    // Open new window or tab to trigger the redirect route
+    window.location.href = `/visit/${alias}`;
+  });
+  </script>
+
+</body>
+</html>
