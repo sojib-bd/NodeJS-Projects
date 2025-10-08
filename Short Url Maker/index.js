@@ -1,3 +1,4 @@
+const Joi = require('joi');
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -19,23 +20,35 @@ app.get('/', (req, res) => {
 });
 
 app.post('/api/shorten', async (req, res) => {
-  const { longUrl, shortUrl } = req.body;
+  const schema= Joi.object({
+    longUrl: Joi.string()
+            .uri({scheme:['http','https']})
+            .min(10)
+            .required()
+            .empty(''),
+    shortUrl: Joi.string()
+            .required()
+  })
 
-  if (!longUrl || !shortUrl) {
-    return res.status(400).json({ error: 'Missing longUrl or shortUrl' });
+  const {error, value} = schema.validate(req.body)
+
+  if (error) {
+    return res.status(400).json({ error:error.details[0].message });
   }
 
+  const { longUrl,shortUrl} = value;
+  
   try {
-    const result = await pool.query(
-      'INSERT INTO url_mappings (long_url, short_url) VALUES ($1, $2) RETURNING *',
-      [longUrl, shortUrl]
-    );
+      const result = await pool.query(
+        'INSERT INTO url_mappings (long_url, short_url) VALUES ($1, $2) RETURNING *',
+        [longUrl, shortUrl]
+      );
 
-    res.status(201).json({ message: 'URL shortened', shortUrl: result.rows[0].short_url });
-  } catch (error) {
-    console.error('Error saving to DB:', error);
-    res.status(500).json({ error: 'Database error' });
-  }
+      res.status(201).json({ message: 'URL shortened', shortUrl: result.rows[0].short_url });
+    } catch (error) {
+      console.error('Error saving to DB:', error);
+      res.status(500).json({ error: 'Database error' });
+    }
 });
 
 app.get('/visit/:shortUrlAlias', async (req, res) => {

@@ -75,8 +75,9 @@ button:active {
 
 /* Small Text */
 .small-text {
-  font-size: 12px;
-  color: #888;
+  font-size: 15px;
+  color: #100f0fe4;
+  font-weight: bold;
 }
 
 /* Success Message */
