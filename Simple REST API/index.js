@@ -5,6 +5,7 @@ const {Pool} = require('pg');
 const cors = require('cors');
 const path = require('path');
 const crypto = require('crypto');
+require('dotenv').config();
 const PORT = 8081;
 
 app.use(express.json());
@@ -13,11 +14,11 @@ app.use(express.static('public'));
 
 //Database configuration
 const pool = new Pool ({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'MyDatabase',
-    password: 'admin123',
-    port: 5432,
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
 })
 
 //render the html page for login
