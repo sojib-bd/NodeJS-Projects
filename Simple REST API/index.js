@@ -1,3 +1,4 @@
+//dependency
 const express = require('express');
 const app = express();
 const {Pool} = require('pg');
@@ -8,7 +9,9 @@ const PORT = 8081;
 
 app.use(express.json());
 app.use(cors());
+app.use(express.static('public'));
 
+//Database configuration
 const pool = new Pool ({
     user: 'postgres',
     host: 'localhost',
@@ -17,23 +20,18 @@ const pool = new Pool ({
     port: 5432,
 })
 
-app.use(express.static('public'));
-
+//render the html page for login
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
-app.get('/customers',async (req,res)=>{
-    try{
-        const result = await pool.query('select * from customers');
-        res.json(result.rows);
-    }catch(error){
-        console.error(error)
-        res.status(500).json({error:"server error"})
-    }
+//showing user profile by rendering the user-profile html
+app.get('/profile',(req,res)=>{
+    res.sendFile(path.join(__dirname, 'public', 'user-profile.html'));
+})
 
-});
 
+//user signup endpoint
 app.post('/signup',async(req,res)=>{
     
     try{
@@ -55,24 +53,7 @@ app.post('/signup',async(req,res)=>{
     }
 })
 
-app.get('/customers/:id',async (req,res)=>{
-    const id = parseInt(req.params.id);
-    try{
-        const result = await pool.query('select * from customers where id = $1',[id]);
-        if(result.rows.length === 0){
-            res.status(404).json({error: 'user not found'})
-        }
-        res.json(result.rows[0])
-    }catch(error){
-        console.error(error);
-        res.status(500).json({error: 'Server error'})
-    }
-})
-
-app.get('/profile',(req,res)=>{
-    res.sendFile(path.join(__dirname, 'public', 'user-profile.html'));
-})
-
+//user login endpoint
 app.post('/login',async (req,res)=>{
    const {email,password} = req.body;
    const passwordEncrypt = crypto.createHash('md5').update(password).digest('hex');
@@ -92,7 +73,32 @@ app.post('/login',async (req,res)=>{
 
 })
 
+// showing all the users
+app.get('/customers',async (req,res)=>{
+    try{
+        const result = await pool.query('select * from customers');
+        res.json(result.rows);
+    }catch(error){
+        console.error(error)
+        res.status(500).json({error:"server error"})
+    }
 
+});
+
+// showing users with specific id
+app.get('/customers/:id',async (req,res)=>{
+    const id = parseInt(req.params.id);
+    try{
+        const result = await pool.query('select * from customers where id = $1',[id]);
+        if(result.rows.length === 0){
+            res.status(404).json({error: 'user not found'})
+        }
+        res.json(result.rows[0])
+    }catch(error){
+        console.error(error);
+        res.status(500).json({error: 'Server error'})
+    }
+})
 
 
 app.listen(PORT,()=>{
