@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Home Page</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font import for aesthetics */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fc; /* Light, clean background */
+            min-height: 100vh;
+        }
+        /* Essential transition rule for fade effect */
+        .content-section {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .logo {
+            width: 40px;
+            height: 40px;
+            background-color: #3498db; /* blue color */
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-lg sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                
+                <!-- Left: Logo/Brand (Now explicitly calls showSection('features') for Home) -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" id="logo-link" class="text-2xl font-bold text-indigo-600 tracking-wider">
+                        <!-- Abstract geometric logo -->
+                        <svg class="inline h-6 w-6 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2L2 7V17L12 22L22 17V7L12 2Z"/>
+                            <path d="M12 22V12"/>
+                            <path d="M2 7L12 12L22 7"/>
+                        </svg>
+                        AppBrand
+                    </a>
+                </div>
+                
+                <!-- Right: Navigation Links & Sign In Button -->
+                <div class="flex items-center space-x-4">
+                    <!-- Updated links to call showSection function -->
+                    <a href="#" onclick="showSection('features')" class="text-gray-600 hover:text-indigo-600 px-3 py-2 rounded-lg text-sm font-medium transition duration-150 hidden sm:inline">Features</a>
+                    <a href="#" onclick="showSection('pricing')" class="text-gray-600 hover:text-indigo-600 px-3 py-2 rounded-lg text-sm font-medium transition duration-150 hidden sm:inline">Pricing</a>
+                    <a href="#" onclick="showSection('about')" class="text-gray-600 hover:text-indigo-600 px-3 py-2 rounded-lg text-sm font-medium transition duration-150 hidden sm:inline">About</a>
+
+                    <!-- Sign In Button (Right Corner) -->
+                    <a href="./signInPage.html" class="ml-4 bg-indigo-600 text-white px-4 py-2 rounded-xl text-sm font-medium shadow-md hover:bg-indigo-700 transition duration-150 transform hover:scale-105" id="signInBtn">
+                        Sign In
+                    </a>
+                    <div id="userInfo" style="display: none;">
+                         <!-- <div class="logo"></div> -->
+                         <a href="#"class='logo'></a>
+                        <span id="usernameText" style="margin-top: 7px;"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section (ID: home) - Always visible by default -->
+    <header id="home" class="py-20 md:py-32 bg-white shadow-inner content-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span class="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider text-indigo-600 bg-indigo-100 rounded-full mb-4">
+                New Era of Productivity
+            </span>
+            <h1 class="text-5xl md:text-7xl font-extrabold text-gray-900 leading-tight mb-6">
+                Your Ideas, <br class="sm:hidden">
+                <span class="text-indigo-600">Simplified.</span>
+            </h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-10">
+                The platform designed to turn complex tasks into simple, actionable steps. Start streamlining your workflow today.
+            </p>
+            <div class="flex justify-center space-x-4">
+                <a href="#signup" class="bg-indigo-600 text-white px-8 py-3 rounded-xl text-lg font-semibold shadow-xl hover:bg-indigo-700 transition duration-300 transform hover:scale-105">
+                    Get Started Free
+                </a>
+                <a href="#" onclick="showSection('features')" class="bg-white text-gray-800 border border-gray-300 px-8 py-3 rounded-xl text-lg font-semibold shadow-md hover:bg-gray-100 transition duration-300 transform hover:scale-105">
+                    Learn More
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Content Sections -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+
+        <!-- Features Section (Default content when other sections are not shown) -->
+        <section id="features" class="content-section">
+            <h2 class="text-4xl font-bold text-center text-gray-900 mb-4">
+                Core Features: Unlocking Efficiency
+            </h2>
+            <p class="text-xl text-center text-gray-500 mb-16 max-w-2xl mx-auto">
+                Discover the tools that will redefine how you work and collaborate.
+            </p>
+
+            <!-- Feature Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                
+                <!-- Feature 1: Real-time Sync -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-indigo-100 transform hover:shadow-2xl transition duration-300">
+                    <div class="text-indigo-500 mb-4">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2c4.001 0 7.825 1.77 10.618 4.717M3.382 6.717C6.175 3.77 9.999 2 14 2c4.001 0 7.825 1.77 10.618 4.717m-17.236 0A11.955 11.955 0 0112 22c-4.001 0-7.825-1.77-10.618-4.717"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Real-time Sync</h3>
+                    <p class="text-gray-500">
+                        Collaborate instantly with your team. All changes are visible and synced across every device, eliminating conflicts.
+                    </p>
+                </div>
+
+                <!-- Feature 2: Lightning Fast -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-indigo-100 transform hover:shadow-2xl transition duration-300">
+                    <div class="text-indigo-500 mb-4">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Lightning Fast</h3>
+                    <p class="text-gray-500">
+                        Engineered for performance, our platform loads in milliseconds, ensuring zero delay in your workflow.
+                    </p>
+                </div>
+
+                <!-- Feature 3: Secure & Private -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-indigo-100 transform hover:shadow-2xl transition duration-300">
+                    <div class="text-indigo-500 mb-4">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-2-6h4m4 0a7 7 0 100-14 7 7 0 000 14zm-2 2h-4v4h4v-4z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Secure & Private</h3>
+                    <p class="text-gray-500">
+                        Your data is protected with end-to-end encryption and compliance with the highest global security standards.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section (Initially Hidden) -->
+        <section id="pricing" class="content-section hidden">
+            <h2 class="text-4xl font-bold text-center text-gray-900 mb-4">
+                Simple Pricing for Every Team
+            </h2>
+            <p class="text-xl text-center text-gray-500 mb-16 max-w-2xl mx-auto">
+                Choose the plan that fits your needs, whether you're a solo freelancer or a growing enterprise.
+            </p>
+
+            <!-- Pricing Grid -->
+            <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+                
+                <!-- Basic Plan -->
+                <div class="flex flex-col p-6 bg-white border border-gray-200 rounded-3xl shadow-xl hover:shadow-indigo-300 transition duration-300">
+                    <h3 class="text-2xl font-bold leading-6 text-gray-900">Basic</h3>
+                    <p class="mt-4 text-sm text-gray-500">For side projects and testing the waters.</p>
+                    <p class="mt-8">
+                        <span class="text-5xl font-extrabold text-gray-900">$19</span>
+                        <span class="text-base font-medium text-gray-500">/mo</span>
+                    </p>
+                    <ul role="list" class="mt-6 space-y-4">
+                        <li class="flex items-center">
+                            <svg class="h-5 w-5 text-indigo-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                            <span class="ml-3 text-base text-gray-500">5 Projects</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="h-5 w-5 text-indigo-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                            <span class="ml-3 text-base text-gray-500">Unlimited users</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="h-5 w-5 text-indigo-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                            <span class="ml-3 text-base text-gray-500">Community support</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="mt-8 block w-full bg-indigo-50 border border-indigo-500 text-indigo-700 py-3 rounded-xl text-center font-semibold hover:bg-indigo-100">
+                        Choose Basic
+                    </a>
+                </div>
+
+                <!-- Pro Plan (Recommended) -->
+                <div class="flex flex-col p-6 bg-indigo-600 border border-indigo-700 rounded-3xl shadow-2xl scale-105">
+                    <h3 class="text-2xl font-bold leading-6 text-white">Pro <span class="text-xs ml-2 px-2 py-0.5 bg-white text-indigo-600 rounded-full">Recommended</span></h3>
+                    <p class="mt-4 text-sm text-indigo-200">The best choice for growing teams and startups.</p>
+                    <p class="mt-8">
+                        <span class="text-5xl font-extrabold text-white">$49</span>
+                        <span class="text-base font-medium text-indigo-200">/mo</span>
+                    </p>
+                    <ul role="list" class="mt-6 space-y-4">
+                        <li class="flex items-center">
+                            <svg class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                            <span class="ml-3 text-base text-white">Unlimited Projects</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                            <span class="ml-3 text-base text-white">Dedicated Support</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                            <span class="ml-3 text-base text-white">Advanced Analytics</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="mt-8 block w-full bg-white text-indigo-600 py-3 rounded-xl text-center font-semibold hover:bg-indigo-50">
+                        Choose Pro
+                    </a>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="flex flex-col p-6 bg-white border border-gray-200 rounded-3xl shadow-xl hover:shadow-indigo-300 transition duration-300">
+                    <h3 class="text-2xl font-bold leading-6 text-gray-900">Enterprise</h3>
+                    <p class="mt-4 text-sm text-gray-500">For large organizations with unique requirements.</p>
+                    <p class="mt-8">
+                        <span class="text-5xl font-extrabold text-gray-900">Custom</span>
+                    </p>
+                    <ul role="list" class="mt-6 space-y-4">
+                        <li class="flex items-center">
+                            <svg class="h-5 w-5 text-indigo-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                            <span class="ml-3 text-base text-gray-500">SLA Guarantee</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="h-5 w-5 text-indigo-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                            <span class="ml-3 text-base text-gray-500">Custom Integrations</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="h-5 w-5 text-indigo-500" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                            <span class="ml-3 text-base text-gray-500">On-premise deployment</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="mt-8 block w-full bg-indigo-600 text-white py-3 rounded-xl text-center font-semibold hover:bg-indigo-700">
+                        Contact Sales
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section (Initially Hidden) -->
+        <section id="about" class="content-section hidden">
+            <h2 class="text-4xl font-bold text-center text-gray-900 mb-4">
+                Our Story: Building the Future
+            </h2>
+            <p class="text-xl text-center text-gray-500 mb-16 max-w-2xl mx-auto">
+                We believe in creating tools that empower everyone to achieve more.
+            </p>
+
+            <div class="space-y-12">
+                <!-- Mission -->
+                <div class="bg-white p-10 rounded-2xl shadow-xl">
+                    <h3 class="text-2xl font-bold text-indigo-600 mb-3">Our Mission</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        To simplify the digital workflow for creative professionals and growing businesses. We started AppBrand in 2020 with the simple idea that powerful software shouldn't require complex training. Our focus is on intuitive design and robust performance.
+                    </p>
+                </div>
+                <!-- Team placeholder -->
+                <div class="bg-white p-10 rounded-2xl shadow-xl">
+                    <h3 class="text-2xl font-bold text-indigo-600 mb-3">The Team</h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
+                        <div>
+                            <img src="https://placehold.co/100x100/A0BFFF/FFFFFF?text=J+D" class="w-20 h-20 rounded-full mx-auto mb-2 shadow-md">
+                            <p class="font-semibold text-gray-900">John Doe</p>
+                            <p class="text-sm text-indigo-500">CEO</p>
+                        </div>
+                        <div>
+                            <img src="https://placehold.co/100x100/A0BFFF/FFFFFF?text=A+S" class="w-20 h-20 rounded-full mx-auto mb-2 shadow-md">
+                            <p class="font-semibold text-gray-900">Alice Smith</p>
+                            <p class="text-sm text-indigo-500">CTO</p>
+                        </div>
+                        <div>
+                            <img src="https://placehold.co/100x100/A0BFFF/FFFFFF?text=M+R" class="w-20 h-20 rounded-full mx-auto mb-2 shadow-md">
+                            <p class="font-semibold text-gray-900">Mark Rivera</p>
+                            <p class="text-sm text-indigo-500">Lead Designer</p>
+                        </div>
+                        <div>
+                            <img src="https://placehold.co/100x100/A0BFFF/FFFFFF?text=L+K" class="w-20 h-20 rounded-full mx-auto mb-2 shadow-md">
+                            <p class="font-semibold text-gray-900">Lena Kim</p>
+                            <p class="text-sm text-indigo-500">Marketing Lead</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-400">
+            <p class="text-sm">
+                &copy; 2024 AppBrand, Inc. All rights reserved. | 
+                <a href="#" class="hover:text-white transition duration-150">Privacy Policy</a> | 
+                <a href="#" class="hover:text-white transition duration-150">Terms of Service</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Helper function to handle fade-out transition
+        const TRANSITION_DURATION = 300; // Matches CSS transition duration
+        
+        function fadeOut(element) {
+            // If already hidden, do nothing
+            if (element.classList.contains('hidden')) {
+                return Promise.resolve();
+            }
+
+            return new Promise(resolve => {
+                element.style.opacity = '0';
+                setTimeout(() => {
+                    element.classList.add('hidden');
+                    element.style.opacity = ''; // Clean up inline style
+                    resolve();
+                }, TRANSITION_DURATION);
+            });
+        }
+
+        // Helper function to handle fade-in transition
+        function fadeIn(element) {
+            // Remove hidden class immediately, but keep opacity 0
+            element.classList.remove('hidden');
+            element.style.opacity = '0';
+            
+            // Use requestAnimationFrame twice to ensure the DOM is painted 
+            // with opacity 0 before setting opacity 1, which triggers the transition
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    element.style.opacity = '1';
+                });
+            });
+        }
+
+        // Main navigation logic
+        function showSection(sectionId) {
+            const header = document.getElementById('home');
+            const sections = [
+                document.getElementById('features'),
+                document.getElementById('pricing'),
+                document.getElementById('about')
+            ];
+
+            // 1. Determine the target section
+            // If the user clicks 'home' (via logo) or 'features', the target in the main content is 'features'
+            const targetSectionId = (sectionId === 'home' || sectionId === 'features') ? 'features' : sectionId;
+            const targetSection = document.getElementById(targetSectionId);
+
+            if (!targetSection) return;
+
+            // 2. Handle Header (Home) visibility
+            if (sectionId === 'home' || sectionId === 'features') {
+                fadeIn(header); // Show header for 'home' or 'features' view
+            } else {
+                fadeOut(header); // Hide header for 'pricing' or 'about' view
+            }
+            
+            // 3. Handle Main Content Sections: Fade out all but the target
+            sections.forEach(section => {
+                if (section.id !== targetSection.id) {
+                    fadeOut(section);
+                }
+            });
+
+            // 4. Fade in the target section
+            // We start the fade in immediately, allowing parallel transitions
+            fadeIn(targetSection);
+
+            // Scroll to the top of the page for a smooth view
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Initial setup and event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Ensure non-default sections start hidden with opacity 0
+            document.getElementById('pricing').classList.add('hidden');
+            document.getElementById('pricing').style.opacity = '0';            
+            
+            document.getElementById('about').classList.add('hidden');
+            document.getElementById('about').style.opacity = '0';
+
+            const signInBtn = document.getElementById('signInBtn');
+            const userName = document.getElementById('usernameText');
+            const userInfo = document.getElementById('userInfo');
+
+            const loggedInUser = localStorage.getItem('LoggedInUser');
+            if(loggedInUser){
+                signInBtn.style.display = 'none';
+                userName.textContent = loggedInUser;
+                userInfo.style.display = 'flex'
+            }
+            
+            // Add click handler to the logo to return to the features/home view
+            document.getElementById('logo-link').addEventListener('click', (e) => {
+                e.preventDefault();
+                showSection('features'); // 'features' implies the default home view
+            });
+        });
+    </script>
+</body>
+</html>

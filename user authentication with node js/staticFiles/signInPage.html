@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for the page and focus effect */
+        body {
+            font-family: 'Inter', sans-serif;
+            /* * IMPROVED BACKGROUND STYLES 
+             * Replaced the image URL with a complex CSS gradient 
+             * to simulate a dark, abstract, neon-lit circuit board/tech background.
+            */
+            background-color: #0d1117; 
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(30, 60, 100, 0.4) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(100, 30, 80, 0.4) 0%, transparent 40%),
+                repeating-linear-gradient(0deg, #181d23, #181d23 1px, transparent 1px, transparent 80px),
+                repeating-linear-gradient(90deg, #181d23, #181d23 1px, transparent 1px, transparent 80px);
+            background-size: 100% 100%, 100% 100%, 80px 80px, 80px 80px;
+            background-position: 0 0, 0 0, 0 0, 0 0;
+            background-attachment: fixed;
+            overflow: auto;
+        }
+
+        /* Custom gradient border effect for inputs on focus */
+        .input-focus-effect:focus {
+            border-color: transparent; /* Hide default border */
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.5); /* Blue glow */
+        }
+        
+        /* Gradient for the card background glow - made slightly stronger for better effect */
+        .card-bg-glow {
+            background: rgba(17, 24, 39, 0.85); /* Slightly transparent dark background */
+            backdrop-filter: blur(10px); /* Add a slight blur effect for realism */
+            border: 1px solid rgba(255, 255, 255, 0.05); /* Subtle border for definition */
+            /* Using the same blue glow effect as the Sign Up page */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 50px rgba(37, 99, 235, 0.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <!-- Log In Container -->
+    <div class="w-full max-w-sm rounded-3xl p-8 md:p-10 card-bg-glow transition-all duration-300">
+
+        <!-- Title -->
+        <h1 class="text-4xl font-extrabold text-white text-center mb-10 tracking-tight">
+            Sign In
+        </h1>
+
+        <!-- Form Start -->
+        <form action="#" method="POST" class="space-y-6" id="signIn-form">
+
+            <!-- Email Input -->
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="you@example.com"
+                    class="w-full px-4 py-3 bg-gray-700 text-white border border-gray-600 rounded-xl focus:outline-none input-focus-effect transition duration-200 placeholder-gray-400"
+                    required
+                >
+            </div>
+
+            <!-- Password Input -->
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-300 mb-2">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="••••••••"
+                    class="w-full px-4 py-3 bg-gray-700 text-white border border-gray-600 rounded-xl focus:outline-none input-focus-effect transition duration-200 placeholder-gray-400"
+                    required
+                    minlength="8"
+                    title="Please enter your password (minimum 8 characters)."
+                >
+            </div>
+
+            <!-- Forgot Password Link -->
+            <div class="flex justify-end text-sm">
+                <a href="#" class="text-blue-400 hover:text-blue-300 transition duration-150">
+                    Forgot Password?
+                </a>
+            </div>
+
+            <!-- Log In Button -->
+            <button
+                type="submit"
+                class="w-full py-3 mt-4 text-lg font-semibold text-white bg-blue-600 rounded-xl shadow-lg shadow-blue-500/50 hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-[1.01] focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
+            >
+                Sign In
+            </button>
+
+            <!-- Sign Up Prompt -->
+            <p class="text-sm text-center text-gray-400 pt-4">
+                Don't have an account?
+                <a href="./signUpPage.html" class="font-semibold text-blue-400 hover:text-blue-300 transition duration-150">
+                    Sign Up here
+                </a>
+            </p>
+        </form>
+    </div>
+   <script>
+        document.getElementById('signIn-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Stop the default form submission
+
+            const EnterPassword = document.getElementById('password').value;
+            const EnterEmail = document.getElementById('email').value;
+
+
+            const savedUserData = JSON.parse(localStorage.getItem('appUser'));
+
+            if(!savedUserData){
+                alert('No user found.Please signUp first');
+            }
+            if(savedUserData.email === EnterEmail && savedUserData.password === EnterPassword){
+                localStorage.setItem('LoggedInUser',savedUserData.fullName);
+                window.location.href = 'HomePage.html'
+                // Clear form after successful submission
+                this.reset();
+            }else{
+                alert('Incorrect username or password')
+            }
+            
+           
+        });
+
+        
+
+    </script>
+
+</body>
+</html>
