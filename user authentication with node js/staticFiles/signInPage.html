@@ -114,20 +114,45 @@
             const EnterPassword = document.getElementById('password').value;
             const EnterEmail = document.getElementById('email').value;
 
-
-            const savedUserData = JSON.parse(localStorage.getItem('appUser'));
-
-            if(!savedUserData){
-                alert('No user found.Please signUp first');
+            const userInfo = {
+                email: EnterEmail,
+                password: EnterPassword
             }
-            if(savedUserData.email === EnterEmail && savedUserData.password === EnterPassword){
-                localStorage.setItem('LoggedInUser',savedUserData.fullName);
+
+             fetch('http://localhost:8080/login',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userInfo)
+            })
+            .then(response =>{
+                if(!response.ok){
+                    throw new Error(`HTTP Error.Status - ${response.status}`)
+                }
                 window.location.href = 'HomePage.html'
-                // Clear form after successful submission
-                this.reset();
-            }else{
-                alert('Incorrect username or password')
-            }
+                return response.json();
+            })
+            .then(data=>{
+                console.log(data)
+            })
+            .catch(err=>{
+                console.error("Error",err)
+                alert('Wrong credentials')
+            })
+            // const savedUserData = JSON.parse(localStorage.getItem('appUser'));
+
+            // if(!savedUserData){
+            //     alert('No user found.Please signUp first');
+            // }
+            // if(savedUserData.email === EnterEmail && savedUserData.password === EnterPassword){
+            //     localStorage.setItem('LoggedInUser',savedUserData.fullName);
+            //     window.location.href = 'HomePage.html'
+            //     // Clear form after successful submission
+            //     this.reset();
+            // }else{
+            //     alert('Incorrect username or password')
+            // }
             
            
         });

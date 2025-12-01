@@ -51,7 +51,7 @@
         </div>
 
         <!-- Signup Form -->
-        <form id="signup-form" class="space-y-6">
+        <form action="/newUser" method="POST" id="signup-form" class="space-y-6">
             
             <!-- Full Name Input -->
             <div>
@@ -155,7 +155,7 @@
             }
 
             // Simulate successful signup (In a real app, you would send this data to a server)
-            console.log('Form Submitted:', { fullName, email, password });
+            // console.log('Form Submitted:', { fullName, email, password });
             const userDate = {
                 fullName : fullName,
                 email : email,
@@ -166,8 +166,26 @@
             // Clear form after successful submission
             this.reset();
             
-            localStorage.setItem('appUser',JSON.stringify(userDate));
-
+            // localStorage.setItem('appUser',JSON.stringify(userDate));
+            fetch('http://localhost:8080/newUser',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userDate)
+            })
+            .then(response =>{
+                if(!response.ok){
+                    throw new Error(`HTTP Error.Status - ${response.status}`)
+                }
+                return response.json();
+            })
+            .then(data=>{
+                console.log(data)
+            })
+            .catch(err=>{
+                console.err("Error",err)
+            })
             setTimeout(() => {
                 window.location.href = 'signInPage.html'; 
             }, 2000);
