@@ -391,13 +391,23 @@
             const userName = document.getElementById('usernameText');
             const userInfo = document.getElementById('userInfo');
 
-            const loggedInUser = localStorage.getItem('LoggedInUser');
-            if(loggedInUser){
-                signInBtn.style.display = 'none';
-                userName.textContent = loggedInUser;
-                userInfo.style.display = 'flex'
-            }
-            
+             fetch('/auth/check',{
+                credentials: "include"
+            })
+            .then(res => res.json())
+            .then(data=> {
+                let text = data.user.email.split('@')[0];
+                if(data.loggedIn){
+                    signInBtn.style.display = 'none';
+                    userName.textContent =text;
+                    userInfo.style.display = 'flex'
+                }else{
+                   signInBtn.style.display = 'block';
+                }
+            })
+            // signInBtn.style.display = 'none';
+            // userName.textContent = loggedInUser;
+            // userInfo.style.display = 'flex'
             // Add click handler to the logo to return to the features/home view
             document.getElementById('logo-link').addEventListener('click', (e) => {
                 e.preventDefault();

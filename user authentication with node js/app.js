@@ -3,12 +3,24 @@ const fs = require('fs/promises');
 const path = require('path');
 const app = express();
 const { Client } = require('pg');
+const session = require('express-session');
 const PORT = 8080;
+require('dotenv').config();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+// session config
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 1000 * 60 * 60,
+    httpOnly: true
+  }
+}))
 
-require('dotenv').config();
+
 
 const client = new Client({
   host: process.env.PG_HOST,
@@ -70,7 +82,12 @@ app.post('/login',async (req,res)=>{
     try{
         const result = await client.query('select * from customers where email = $1 and password = $2',[email,password]);
         if(result.rows.length > 0){
-            const user = result.rows[0]
+            const user = result.rows[0];
+           //saving the session in memory and send to the browser
+            req.session.user = {
+              id: user._id,
+              email: user.email
+            }
             res.status(200).json({success: true,message:'login successful',username: user.username})
         }else{
             res.status(401).json({success: false,message:'login fail'})
@@ -81,6 +98,15 @@ app.post('/login',async (req,res)=>{
     }
 
 
+})
+
+//check the used logged In or not
+app.get('/auth/check',(req,res)=>{
+  if(req.session.user){
+    res.json({loggedIn: true,user: req.session.user})
+  }else{
+    res.json({loggedIn:false})
+  }
 })
 
 
