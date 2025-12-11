@@ -4,12 +4,13 @@ const path = require('path');
 const app = express();
 const { Client } = require('pg');
 const session = require('express-session');
+const crypto = require('crypto');
 const PORT = 8080;
 require('dotenv').config();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// session config
+
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
@@ -19,8 +20,6 @@ app.use(session({
     httpOnly: true
   }
 }))
-
-
 
 const client = new Client({
   host: process.env.PG_HOST,
@@ -32,6 +31,7 @@ const client = new Client({
 
 app.use(express.static('staticFiles'));
 const filepath = path.join(__dirname,'./staticFiles/HomePage.html');
+
 
 app.get('/', async(req,res)=>{
     const fileHandler = await fs.open(filepath,'r');
@@ -96,9 +96,14 @@ app.post('/login',async (req,res)=>{
     }catch(error){
         console.error("error:",error)
     }
-
-
 })
+
+app.post('/logout',(req,res)=>{
+  req.session.destroy(()=>{
+    res.clearCookie('connect.sid');
+    res.json({success: true});
+  });
+});
 
 //check the used logged In or not
 app.get('/auth/check',(req,res)=>{

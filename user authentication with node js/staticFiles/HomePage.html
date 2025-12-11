@@ -61,9 +61,56 @@
                     </a>
                     <div id="userInfo" style="display: none;">
                          <!-- <div class="logo"></div> -->
-                         <a href="#"class='logo'></a>
+                         <a href="#"class='logo' id="userLogo"></a>
                         <span id="usernameText" style="margin-top: 7px;"></span>
                     </div>
+                </div>
+                
+            </div>
+            <!---profile-->
+            <div id="profile-menu" class="hidden absolute right-0 mt-2 w-72 origin-top-right rounded-xl shadow-2xl bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 transition-all duration-300 ease-out" role="menu" aria-orientation="vertical" aria-labelledby="profile-menu-button" tabindex="-1">
+            
+                <div class="p-4 flex flex-col items-center border-b border-gray-100">
+                    <div class="w-16 h-16 bg-indigo-500 rounded-full flex items-center justify-center text-white text-xl font-semibold mb-2 shadow-md">
+                        JD
+                    </div>
+                    <p class="text-lg font-bold text-gray-900">Jane Doe</p>
+                    <p class="text-sm text-gray-500 mb-2">janedoe@example.com</p>
+                    <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-800 transition-colors">
+                        View Profile &rarr;
+                    </a>
+                </div>
+
+                <div class="py-2" role="none">
+                    <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                        <svg class="w-5 h-5 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        Personal Info
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                        <svg class="w-5 h-5 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.545.337 1.25.165 1.724-.106z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        Settings
+                    </a>
+                    <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                        <svg class="w-5 h-5 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        Privacy & Security
+                    </a>
+                </div>
+            
+                <div class="py-2 px-4 border-t border-gray-100">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-medium text-gray-700">Theme</span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" value="" class="sr-only peer">
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="py-1 border-t border-gray-100" role="none">
+                    <a href="#" id="logout" class="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors font-medium">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3v-4a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                        Log Out
+                    </a>
                 </div>
             </div>
         </div>
@@ -302,6 +349,9 @@
         </div>
     </footer>
 
+    <!----------user profile-->
+
+          
     <script>
         // Helper function to handle fade-out transition
         const TRANSITION_DURATION = 300; // Matches CSS transition duration
@@ -390,6 +440,7 @@
             const signInBtn = document.getElementById('signInBtn');
             const userName = document.getElementById('usernameText');
             const userInfo = document.getElementById('userInfo');
+            const logo = document.getElementById('userLogo');
 
              fetch('/auth/check',{
                 credentials: "include"
@@ -401,6 +452,22 @@
                     signInBtn.style.display = 'none';
                     userName.textContent =text;
                     userInfo.style.display = 'flex'
+                    logo.addEventListener('click',(event)=>{
+                        console.log("clicked")
+                        const menu = document.getElementById('profile-menu');
+                        menu.classList.toggle('hidden');
+                        event.stopPropagation();
+                    })
+
+                    userInfo.addEventListener('click', function(event) {
+                    const button = document.getElementById('profile-menu-button');
+                    const menu = document.getElementById('profile-menu');
+                    if (!button.contains(event.target) && !menu.contains(event.target)) {
+                        menu.classList.add('hidden');
+                        }
+                    });
+
+
                 }else{
                    signInBtn.style.display = 'block';
                 }
@@ -414,6 +481,23 @@
                 showSection('features'); // 'features' implies the default home view
             });
         });
+
+        document.getElementById('logout').addEventListener('click',(e)=>{
+            e.preventDefault();
+            fetch('http://localhost:8080/logout',{
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(res=> res.json())
+            .then(data=>{
+                window.location.href = "/HomePage.html";
+            })
+            .catch(err=>console.error(err))
+        })
+
     </script>
 </body>
 </html>
