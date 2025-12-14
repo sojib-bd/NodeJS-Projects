@@ -472,16 +472,11 @@
                    signInBtn.style.display = 'block';
                 }
             })
-            // signInBtn.style.display = 'none';
-            // userName.textContent = loggedInUser;
-            // userInfo.style.display = 'flex'
-            // Add click handler to the logo to return to the features/home view
             document.getElementById('logo-link').addEventListener('click', (e) => {
                 e.preventDefault();
                 showSection('features'); // 'features' implies the default home view
             });
         });
-
         document.getElementById('logout').addEventListener('click',(e)=>{
             e.preventDefault();
             fetch('http://localhost:8080/logout',{

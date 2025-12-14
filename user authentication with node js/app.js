@@ -5,6 +5,7 @@ const app = express();
 const { Client } = require('pg');
 const session = require('express-session');
 const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
 const PORT = 8080;
 require('dotenv').config();
 
@@ -88,7 +89,11 @@ app.post('/login',async (req,res)=>{
               id: user._id,
               email: user.email
             }
-            res.status(200).json({success: true,message:'login successful',username: user.username})
+
+          let payload = {id:user.id}
+          let key = process.env.SECRETE_KEY;
+          let token= jwt.sign(payload,key,{ expiresIn: '1h' });
+          res.status(200).json({success: true,message:'login successful',username: user.username,token})
         }else{
             res.status(401).json({success: false,message:'login fail'})
         }
